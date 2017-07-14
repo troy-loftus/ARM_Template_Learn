@@ -5,7 +5,7 @@
         "location": {
             "value": "westus2"
         },
-        "name": {
+        "namea": {
             "value": "VNetTest1"
         },
         "addressPrefix": {
