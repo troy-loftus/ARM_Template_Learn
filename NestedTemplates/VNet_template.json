@@ -23,11 +23,12 @@
         }
     },
     "variables": {
-        "var1": "thisisvar1"
-    },  
+        "var1": "thisisvar1",
+        "var2": "thisisthelinkedtemplate"
+    },
     "resources": [
         {
-            "apiVersion": "2016-06-01",
+            "apiVersion": "2017-05-10",
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[variables('var1')]",
             "location": "[parameters('location')]",
@@ -45,6 +46,35 @@
                         }
                     }
                 ]
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "linkedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/troy-loftus/ARM_Template_Learn/master/NestedTemplates/Child_template.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "westus2"
+                    },
+                    "namea": {
+                        "value": "[variables('var2')]"
+                    },
+                    "addressPrefix": {
+                        "value": "10.5.0.0/24"
+                    },
+                    "subnetName": {
+                        "value": "SubnetTest2"
+                    },
+                    "subnetAddressPrefix": {
+                        "value": "10.5.0.0/24"
+                    }
+                }
             }
         }
     ]
